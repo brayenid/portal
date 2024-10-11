@@ -67,3 +67,7 @@ export type Static = components["schemas"]["Static"] &
 export type Marriage = components["schemas"]["AnMarriage"] & Item;
 export type Announcement = components["schemas"]["Announcement"] & Item;
 export type DPP = components["schemas"]["Dpp"] & Item;
+
+/* Static Section */
+export type Homepage = components["schemas"]["Homepage"] & Item;
+export type Global = components["schemas"]["Global"] & Item;

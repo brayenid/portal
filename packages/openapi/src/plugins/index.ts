@@ -6,6 +6,8 @@ import {
   type Static,
   Announcement,
   DPP,
+  Global,
+  Homepage,
 } from "../types";
 
 /**
@@ -18,5 +20,7 @@ export function plugins(strapi: Strapi) {
     mariages: rest<Marriage>(strapi, "/an-marriages"),
     annoucements: rest<Announcement>(strapi, "/announcements"),
     dpp: rest<DPP>(strapi, "/dpp"),
+    global: rest<Global>(strapi, "/global"),
+    homepage: rest<Homepage>(strapi, "/homepage"),
   };
 }

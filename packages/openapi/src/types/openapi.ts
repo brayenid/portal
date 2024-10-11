@@ -2950,10 +2950,10 @@ export interface components {
                 subtitle?: string;
                 content?: string;
                 images?: (number | string)[];
-                /** @example string or id */
-                metaImageUrl?: number | string;
-                metaDescription?: string;
                 metaTitle?: string;
+                metaDescription?: string;
+                /** @example string or id */
+                metaImage?: number | string;
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -3190,7 +3190,9 @@ export interface components {
                     documentId?: string;
                 }[];
             }[];
-            metaImageUrl?: {
+            metaTitle?: string;
+            metaDescription?: string;
+            metaImage?: {
                 id?: number;
                 documentId?: string;
                 name?: string;
@@ -3237,8 +3239,6 @@ export interface components {
                     documentId?: string;
                 }[];
             };
-            metaDescription?: string;
-            metaTitle?: string;
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -3307,7 +3307,9 @@ export interface components {
                         documentId?: string;
                     }[];
                 }[];
-                metaImageUrl?: {
+                metaTitle?: string;
+                metaDescription?: string;
+                metaImage?: {
                     id?: number;
                     documentId?: string;
                     name?: string;
@@ -3354,8 +3356,6 @@ export interface components {
                         documentId?: string;
                     }[];
                 };
-                metaDescription?: string;
-                metaTitle?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */

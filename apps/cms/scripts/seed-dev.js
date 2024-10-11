@@ -350,20 +350,41 @@ async function importDpp() {
   }
 }
 
+async function importHomepage() {
+  const title = "Paroki Kristus Raja Barong Tongkok";
+  const subtitle = faker.lorem.words(5);
+  const content = faker.lorem.paragraphs(1);
+  await createEntry({
+    model: "homepage",
+    entry: {
+      title,
+      subtitle,
+      content,
+      images: [images[0], images[1]],
+      metaTitle: `${title} - ${subtitle}`,
+      metaDescription: content,
+      metaImage: images[0],
+    },
+  });
+}
+
 async function importSeedData() {
   await setPublicPermissions({
     category: ["find", "findOne"],
     static: ["find", "findOne"],
     article: ["find", "findOne"],
     announcement: ["find", "findOne"],
+    homepage: ["find", "findOne"],
+    global: ["find", "findOne"],
     "an-marriages": ["find", "findOne"],
   });
 
+  await importImages();
+  await importHomepage();
   await importDpp();
   await importMarriages();
   await importAnnouncement();
   await importCategories();
-  await importImages();
   await importArticles();
 }
 

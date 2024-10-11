@@ -1,7 +1,13 @@
-import Image from 'next/image';
-import jumboImg from '@/assets/jumboimg.jpg';
+import Image from "next/image";
+import jumboImg from "@/assets/jumboimg.jpg";
+import { Homepage } from "@pkrbt/openapi";
+import { addPrefix } from "@/utils/prefix";
 
-export default function Home() {
+type Props = {
+  homepage: Required<Homepage>;
+};
+
+export default function Home({ homepage }: Props) {
   return (
     <div className="flex space-x-5 flex-col md:flex-row">
       <div className="flex-[1]">
@@ -12,18 +18,18 @@ export default function Home() {
           width={500}
           height={300}
           alt="side"
-          src={jumboImg}
-          blurDataURL={String(jumboImg)}></Image>
+          src={addPrefix(homepage.images[0].url ?? jumboImg.src)}
+          blurDataURL={String(jumboImg)}
+        />
       </div>
       <div className="py-4 flex-[1]">
-        <h2 className="uppercase font-semibold mb-4 tracking-widest text-xs">Melihat dengan mata</h2>
-        <h2 className="scroll-m-20 text-xl text-primary-500 font-extrabold tracking-tight lg:text-3xl mb-4">
-          Menggenggam dengan kasih
+        <h2 className="uppercase font-semibold mb-4 tracking-widest text-xs">
+          {homepage.subtitle}
         </h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi maiores sapiente harum mollitia eligendi facere
-          tenetur rem. A, odit molestias.
-        </p>
+        <h2 className="scroll-m-20 text-xl text-primary-500 font-extrabold tracking-tight lg:text-3xl mb-4">
+          {homepage.title}
+        </h2>
+        <div className="markdown">{homepage.content}</div>
       </div>
     </div>
   );

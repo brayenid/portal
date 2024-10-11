@@ -738,7 +738,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   info: {
     singularName: 'homepage';
     pluralName: 'homepages';
-    displayName: 'homepage';
+    displayName: 'Homepage';
     description: '';
   };
   options: {
@@ -748,15 +748,10 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     title: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
     content: Schema.Attribute.RichText;
-    images: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    metaImageUrl: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    metaDescription: Schema.Attribute.String;
+    images: Schema.Attribute.Media<'images', true>;
     metaTitle: Schema.Attribute.String;
+    metaDescription: Schema.Attribute.String;
+    metaImage: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

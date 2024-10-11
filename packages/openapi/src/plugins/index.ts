@@ -19,7 +19,7 @@ export function plugins(strapi: Strapi) {
     static: rest<Static>(strapi, "/statics"),
     mariages: rest<Marriage>(strapi, "/an-marriages"),
     annoucements: rest<Announcement>(strapi, "/announcements"),
-    dpp: rest<DPP>(strapi, "/dpp"),
+    dpp: rest<DPP>(strapi, "/dpps"),
     global: rest<Global>(strapi, "/global"),
     homepage: rest<Homepage>(strapi, "/homepage"),
   };

@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { Image } from "@pkrbt/openapi";
 import { OpenGraphType } from "next/dist/lib/metadata/types/opengraph-types";
 import { addPrefix } from "./prefix";
+import { headers } from "next/headers";
+import invariant from "tiny-invariant";
 
 export type ParokiMeta = {
   title: string;
@@ -17,6 +19,10 @@ export function generateMeta({
   type,
 }: ParokiMeta): Metadata {
   const images = [];
+  const headerList = headers();
+  const url = headerList.get("x-current-url");
+
+  invariant(url, "Can not get current url");
 
   if (image) {
     images.push({
@@ -28,13 +34,16 @@ export function generateMeta({
   }
 
   const metadata: Metadata = {
-    title,
+    title: `PKRBT - ${title}`,
     description,
     openGraph: {
       title,
       description,
       type,
       images,
+      url,
+      countryName: "indonesia",
+      locale: "id",
     },
     twitter: {
       images,

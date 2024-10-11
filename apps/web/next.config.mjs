@@ -16,6 +16,10 @@ const nextConfig = {
         hostname: "api.itstoni.com",
       },
       {
+        hostname: "res.cloudinary.com",
+        protocol: "https",
+      },
+      {
         protocol: "http",
         port: "1337",
         hostname: "localhost",

@@ -1,5 +1,5 @@
 import Container from "@/components/ui/container";
-import Jumbotron from "@/components/jumbotron";
+import Jumbotron from "@/app/homepage/jumbotron";
 import ContainerHeader from "@/components/container-header";
 import MainNews from "@/components/main-news";
 import MisaSchedule from "@/components/schedule";
@@ -17,7 +17,6 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
   const { metaTitle, metaDescription, metaImage } = await fetchHomepage();
-
   return generateMeta({
     title: metaTitle,
     description: metaDescription,

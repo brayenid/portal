@@ -1,27 +1,29 @@
-import type { Metadata } from 'next';
-import '../assets/globals.css';
-import Navigation from '@/components/nav-server';
-import { Footer } from '@/components/layouts/footer';
-import { Montserrat } from 'next/font/google';
-import { Toaster } from '@/components/ui/toaster';
+import type { Metadata } from "next";
+import "../assets/globals.css";
+import Navigation from "@/components/nav-server";
+import { Footer } from "@/components/layouts/footer";
+import { Montserrat } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { GOOGLE_ANALYTICS_ID } from "@/utils/config";
 
 export const metadata: Metadata = {
-  title: 'Paroki Kristus Raja Barong Tongkok',
-  description: 'Portal Paroki Kristus Raja Barong Tongkok',
+  title: "Paroki Kristus Raja Barong Tongkok",
+  description: "Portal Paroki Kristus Raja Barong Tongkok",
   openGraph: {
-    title: 'Paroki Kristus Raja Barong Tongkok',
-    description: 'Portal informasi digital Paroki Kristus Raja Barong Tongkok.'
-  }
+    title: "Paroki Kristus Raja Barong Tongkok",
+    description: "Portal informasi digital Paroki Kristus Raja Barong Tongkok.",
+  },
 };
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-montserrat'
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
 });
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -36,6 +38,7 @@ export default function RootLayout({
         <main className="mx-auto min-h-[90vh]">{children}</main>
         <Toaster />
         <Footer />
+        <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} />
       </body>
     </html>
   );

@@ -73,13 +73,6 @@ jobs:
       #pwa: ${{ needs.changes.outputs.pwa }}
       #web: ${{ needs.changes.outputs.web }}
 
-  sync:
-    name: Synchronize
-    needs: ["testing"]
-    if: github.event_name != 'pull_request'
-    uses: paroki/pkrbt/.github/workflows/sync.yml@next
-    secrets: inherit
-
   deploy:
     name: Deploy
     needs: ["testing"]

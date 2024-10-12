@@ -46,7 +46,7 @@ jobs:
               - "apps/cms/**"
             web:
               - ".github/workflows/**"
-              - "apps/cms/**"
+              - "apps/web/**"
 
       - name: generate outputs
         id: vars

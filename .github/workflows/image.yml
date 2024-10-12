@@ -1,6 +1,7 @@
 name: Image
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       cms:
@@ -10,7 +11,7 @@ on:
 
 jobs:
   cms:
-    name: Build CMS
+    name: CMS
     if: inputs.cms == 'true'
     uses: paroki/pkrbt/.github/workflows/build-image.yml@next
     secrets: inherit

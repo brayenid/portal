@@ -4,78 +4,66 @@ on:
   push:
     branches:
       - next
-      - main
       - debug
+      - beta
+      - main
+      - wip
   pull_request:
     branches:
       - next
       - main
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
-
-env:
-  STRAPI_URL: http://localhost:1337
-
 jobs:
   changes:
-    name: Gather changes
+    name: Collect Changes
     runs-on: ubuntu-latest
     outputs:
       api: ${{ steps.vars.outputs.api }}
       cms: ${{ steps.vars.outputs.cms }}
-      pwa: ${{ steps.vars.outputs.pwa }}
       web: ${{ steps.vars.outputs.web }}
+      pwa: ${{ steps.vars.outputs.pwa }}
+      node_test: ${{ steps.vars.outputs.node_test }}
+      build_cms: ${{ steps.vars.outputs.build_cms }}
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            api:
-              - ".github/workflows/**"
-              - "api/**"
-            pwa:
-              - ".github/workflows/**"
-              - "apps/pwa/**"
-            cms:
-              - ".github/workflows/**"
-              - "apps/cms/**"
-            web:
-              - ".github/workflows/**"
-              - "apps/web/**"
-
-      - name: generate outputs
+      - name: Collect changes
+        uses: ./.github/actions/collect-changes
         id: vars
-        run: |
-          echo "api=${{ steps.changes.outputs.api }}" >> "$GITHUB_OUTPUT";
-          echo "cms=${{ steps.changes.outputs.cms }}" >> "$GITHUB_OUTPUT";
-          echo "pwa=${{ steps.changes.outputs.pwa }}" >> "$GITHUB_OUTPUT";
-          echo "web=${{ steps.changes.outputs.web }}" >> "$GITHUB_OUTPUT";
 
-  testing:
-    name: Testing
-    uses: paroki/pkrbt/.github/workflows/testing.yml@next
+  node-test:
+    name: NodeJS
+    needs: ["changes"]
+    uses: paroki/pkrbt/.github/workflows/node-test.yml@next
     secrets: inherit
+    with:
+      node_test: ${{ needs.changes.outputs.node_test }}
 
-  image:
-    name: Image
-    needs: ["changes", "testing"]
+  e2e:
+    name: E2E
+    needs: ["changes"]
+    uses: paroki/pkrbt/.github/workflows/e2e.yml@next
+    secrets: inherit
+    with:
+      node_test: ${{ needs.changes.outputs.node_test }}
+      web: ${{ needs.changes.outputs.web }}
+
+  build:
+    name: Build
+    needs: ["changes", "node-test", "e2e"]
     if: github.event_name != 'pull_request'
     uses: paroki/pkrbt/.github/workflows/image.yml@next
     secrets: inherit
     with:
-      #api: ${{ needs.changes.outputs.api }}
-      cms: ${{ needs.changes.outputs.cms }}
-      #pwa: ${{ needs.changes.outputs.pwa }}
-      #web: ${{ needs.changes.outputs.web }}
+      cms: ${{ needs.changes.outputs.build_cms }}
 
   deploy:
     name: Deploy
-    needs: ["testing"]
     if: github.event_name != 'pull_request'
+    needs: ["changes", "e2e"]
     uses: paroki/pkrbt/.github/workflows/deploy.yml@next
     secrets: inherit
+    with:
+      web: ${{ needs.changes.outputs.web}}
+      pwa: ${{ needs.changes.outputs.pwa}}

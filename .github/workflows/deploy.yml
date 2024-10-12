@@ -1,91 +1,56 @@
 name: Deploy
 
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_USER_ID }}
-
 on:
   workflow_call:
+    inputs:
+      web:
+        type: string
+        description: Deploy website
+        required: true
+      pwa:
+        type: string
+        description: Deploy website
+        required: true
 
+permissions:
+  contents: read
+  deployments: write
+  statuses: write
+  pull-requests: write
+
+env:
+  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  TURBO_TEAM: ${{ secrets.VERCEL_TEAM }}
+  TURBO_REMOTE_ONLY: true
+  NODE_ENV: production
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_USER_ID }}
 jobs:
   web:
+    name: Website
+    if: inputs.web == 'true'
     runs-on: ubuntu-latest
     env:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_WEB_ID }}
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          run_install: false
-
-      - name: Get pnpm store directory
-        id: vars
-        shell: bash
-        run: |
-          echo "store_path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
-
-          deploy_target="https://dev.pkrbt.id"
-          if [[ github.ref_name == 'main' ]] || [[ github.ref_name == 'beta' ]]; then
-            deploy_target="https://pkrbt.id"
-          fi
-          echo "deploy_target=${deploy_target}" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ steps.vars.outputs.store_path }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: Setup node
+        uses: ./.github/actions/setup-node
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: |
+          npm install --global vercel@latest
+          npm install -g turbo
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
         run: |
-          pnpm install
-          pnpm build
+          pnpm install --filter=@pkrbt/web
+          pnpm build --filter=@pkrbt/web
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Send notification
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: markdown
-          message: |
-            **DEPLOYED**
-            commit: **${{ github.event.head_commit.message }}**
-            branch: **${{ github.ref_name }}**
-            to: ${{ steps.vars.outputs.deploy_target }}
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: development
-        shell: bash
-        if: github.ref_name == 'next' || github.ref_name == 'debug'
-        run: |
-          curl --request GET --header "Accept: application/json" --header "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" ${{ secrets.CF_DEV_URL }}
-
-      - name: production
-        shell: bash
-        if: github.ref_name == 'main' || github.ref_name == 'beta'
-        run: |
-          curl --request GET --header "Accept: application/json" --header "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" ${{ secrets.CF_PROD_URL }}

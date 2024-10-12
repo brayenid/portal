@@ -34,6 +34,7 @@ on:
         required: false
         default: "no-goss"
         description: Goss File Path
+
 jobs:
   build:
     name: Build ${{ inputs.name }}

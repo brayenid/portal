@@ -14,5 +14,6 @@ export function middleware(request: NextRequest) {
     "x-current-url",
     `${request.nextUrl.origin}${request.nextUrl.pathname}`,
   );
+  headers.set("x-origin", request.nextUrl.origin);
   return NextResponse.next({ headers });
 }

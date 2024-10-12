@@ -21,6 +21,7 @@ export function generateMeta({
   const images = [];
   const headerList = headers();
   const url = headerList.get("x-current-url");
+  const origin = headerList.get("x-origin") ?? "http://localhost:3000";
 
   invariant(url, "Can not get current url");
 
@@ -34,6 +35,7 @@ export function generateMeta({
   }
 
   const metadata: Metadata = {
+    metadataBase: new URL(origin),
     title: `PKRBT - ${title}`,
     description,
     openGraph: {

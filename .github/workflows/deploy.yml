@@ -33,6 +33,12 @@ jobs:
         run: |
           echo "store_path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
 
+          deploy_target="https://dev.pkrbt.id"
+          if [[ github.ref_name == 'main' ]] || [[ github.ref_name == 'beta' ]]; then
+            deploy_target="https://pkrbt.id"
+          fi
+          echo "deploy_target=${deploy_target}" >> "$GITHUB_OUTPUT"
+
       - uses: actions/cache@v4
         name: Setup pnpm cache
         with:
@@ -55,6 +61,17 @@ jobs:
 
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Send notification
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            **DEPLOYED**
+            commit: **${{ github.event.head_commit.message }}**
+            branch: **${{ github.ref_name }}**
+            to: ${{ steps.vars.outputs.deploy_target }}
 
   deploy:
     name: Deploy

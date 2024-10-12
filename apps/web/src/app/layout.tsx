@@ -38,7 +38,7 @@ export default function RootLayout({
         <main className="mx-auto min-h-[90vh]">{children}</main>
         <Toaster />
         <Footer />
-        <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID} />
+        <GoogleAnalytics gaId={GOOGLE_ANALYTICS_ID ?? "no-id"} />
       </body>
     </html>
   );

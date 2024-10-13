@@ -48,6 +48,9 @@ importers:
       '@strapi/plugin-users-permissions':
         specifier: 5.0.6
         version: 5.0.6(xzau6dfg2nymh4ajozhuf3m3qe)
+      '@strapi/provider-email-nodemailer':
+        specifier: ^5.0.6
+        version: 5.0.6
       '@strapi/provider-upload-cloudinary':
         specifier: ^5.0.1
         version: 5.0.2
@@ -60,6 +63,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      moment:
+        specifier: ^2.30.1
+        version: 2.30.1
       pg:
         specifier: ^8.13.0
         version: 8.13.0
@@ -103,9 +109,6 @@ importers:
       mime-types:
         specifier: ^2.1.35
         version: 2.1.35
-      moment:
-        specifier: ^2.30.1
-        version: 2.30.1
       supertest:
         specifier: ^7.0.0
         version: 7.0.0
@@ -3249,6 +3252,10 @@ packages:
       react-dom: ^17.0.0 || ^18.0.0
       react-router-dom: ^6.0.0
       styled-components: ^6.0.0
+
+  '@strapi/provider-email-nodemailer@5.0.6':
+    resolution: {integrity: sha512-8QXdBvUJ6m3qMkdlk6iBZ6GCvDIkDfDi7sj9SoTf2s0y5fK266/HDOntLD6u8qiQ1j3aN1jz95d3qXIy8/seUg==}
+    engines: {node: '>=18.0.0 <=22.x.x', npm: '>=6.0.0'}
 
   '@strapi/provider-email-sendmail@5.0.6':
     resolution: {integrity: sha512-en9JugYHFZYAZbCklxEJYa+54AdoCaRb32Vs56tqwZwaznlE02iJkhpKBYZQDXFIjmY4RpCiY0tS5WTZr/hsuw==}
@@ -7962,6 +7969,10 @@ packages:
   nodemailer-shared@1.1.0:
     resolution: {integrity: sha512-68xW5LSyPWv8R0GLm6veAvm7E+XFXkVgvE3FW0FGxNMMZqMkPFeGDVALfR1DPdSfcoO36PnW7q5AAOgFImEZGg==}
 
+  nodemailer@6.9.1:
+    resolution: {integrity: sha512-qHw7dOiU5UKNnQpXktdgQ1d3OFgRAekuvbJLcdG5dnEo/GtcTHRYM7+UfJARdOFU9WUQO8OiIamgWPmiSFHYAA==}
+    engines: {node: '>=6.0.0'}
+
   nodemon@3.0.2:
     resolution: {integrity: sha512-9qIN2LNTrEzpOPBaWHTm4Asy1LxXLSickZStAQ4IZe7zsoIpD/A7LWxhZV3t4Zu352uBcqVnRsDXSMR2Sc3lTA==}
     engines: {node: '>=10'}
@@ -11635,6 +11646,18 @@ snapshots:
     dependencies:
       tslib: 2.7.0
 
+  '@formatjs/intl@2.10.0(typescript@5.3.2)':
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.18.2
+      '@formatjs/fast-memoize': 2.2.0
+      '@formatjs/icu-messageformat-parser': 2.7.6
+      '@formatjs/intl-displaynames': 6.6.6
+      '@formatjs/intl-listformat': 7.5.5
+      intl-messageformat: 10.5.11
+      tslib: 2.7.0
+    optionalDependencies:
+      typescript: 5.3.2
+
   '@formatjs/intl@2.10.0(typescript@5.6.2)':
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
@@ -13662,7 +13685,7 @@ snapshots:
       '@strapi/design-system': 2.0.0-rc.11(@babel/runtime@7.25.6)(@codemirror/autocomplete@6.18.1(@codemirror/language@6.10.3)(@codemirror/state@6.4.1)(@codemirror/view@6.33.0)(@lezer/common@1.2.1))(@codemirror/language@6.10.3)(@codemirror/lint@6.8.1)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.33.0)(@strapi/icons@2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@types/react-dom@18.3.0)(@types/react@18.3.8)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/icons': 2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/permissions': 5.0.6
-      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/typescript-utils': 5.0.6
       '@strapi/utils': 5.0.6
       '@testing-library/dom': 10.1.0
@@ -13855,7 +13878,7 @@ snapshots:
       '@strapi/database': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)
       '@strapi/design-system': 2.0.0-rc.11(@babel/runtime@7.25.6)(@codemirror/autocomplete@6.18.1(@codemirror/language@6.10.3)(@codemirror/state@6.4.1)(@codemirror/view@6.33.0)(@lezer/common@1.2.1))(@codemirror/language@6.10.3)(@codemirror/lint@6.8.1)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.33.0)(@strapi/icons@2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@types/react-dom@18.3.0)(@types/react@18.3.8)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@strapi/icons': 2.0.0-rc.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/utils': 5.0.6
       date-fns: 2.30.0
       date-fns-tz: 2.0.1(date-fns@2.30.0)
@@ -13944,7 +13967,7 @@ snapshots:
       '@strapi/logger': 5.0.6
       '@strapi/pack-up': 5.0.0(@swc/helpers@0.5.5)(@types/node@20.16.5)(debug@4.3.4)(terser@5.33.0)
       '@strapi/permissions': 5.0.6
-      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/typescript-utils': 5.0.6
       '@strapi/utils': 5.0.6
       bcryptjs: 2.4.3
@@ -14421,6 +14444,11 @@ snapshots:
       - supports-color
       - typescript
 
+  '@strapi/provider-email-nodemailer@5.0.6':
+    dependencies:
+      lodash: 4.17.21
+      nodemailer: 6.9.1
+
   '@strapi/provider-email-sendmail@5.0.6':
     dependencies:
       '@strapi/utils': 5.0.6
@@ -14492,7 +14520,7 @@ snapshots:
       '@strapi/pack-up': 5.0.0(@swc/helpers@0.5.5)(@types/node@20.16.5)(debug@4.3.4)(terser@5.33.0)
       '@strapi/permissions': 5.0.6
       '@strapi/review-workflows': 5.0.6(74xlh4nba5pfkvnyp25txtrjvu)
-      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.3.2)
+      '@strapi/types': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.6.2)
       '@strapi/typescript-utils': 5.0.6
       '@strapi/upload': 5.0.6(7lah7onjlkjfglqrmeihpsit4i)
       '@strapi/utils': 5.0.6
@@ -14603,34 +14631,6 @@ snapshots:
       '@strapi/logger': 5.0.1
       '@strapi/permissions': 5.0.1
       '@strapi/utils': 5.0.1
-      commander: 8.3.0
-      koa: 2.15.2
-      koa-body: 6.0.1
-      node-schedule: 2.1.1
-      typedoc: 0.25.10(typescript@5.3.2)
-      typedoc-github-wiki-theme: 1.1.0(typedoc-plugin-markdown@3.17.1(typedoc@0.25.10(typescript@5.6.2)))(typedoc@0.25.10(typescript@5.6.2))
-      typedoc-plugin-markdown: 3.17.1(typedoc@0.25.10(typescript@5.6.2))
-    transitivePeerDependencies:
-      - '@types/node'
-      - better-sqlite3
-      - mysql
-      - mysql2
-      - pg
-      - pg-native
-      - sqlite3
-      - supports-color
-      - tedious
-      - typescript
-
-  '@strapi/types@5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)(typescript@5.3.2)':
-    dependencies:
-      '@casl/ability': 6.5.0
-      '@koa/cors': 5.0.0
-      '@koa/router': 12.0.1
-      '@strapi/database': 5.0.6(@types/node@20.16.5)(better-sqlite3@11.3.0)(pg@8.13.0)
-      '@strapi/logger': 5.0.6
-      '@strapi/permissions': 5.0.6
-      '@strapi/utils': 5.0.6
       commander: 8.3.0
       koa: 2.15.2
       koa-body: 6.0.1
@@ -20788,6 +20788,8 @@ snapshots:
     dependencies:
       nodemailer-fetch: 1.6.0
 
+  nodemailer@6.9.1: {}
+
   nodemon@3.0.2:
     dependencies:
       chokidar: 3.6.0
@@ -21600,7 +21602,7 @@ snapshots:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
       '@formatjs/icu-messageformat-parser': 2.7.6
-      '@formatjs/intl': 2.10.0(typescript@5.6.2)
+      '@formatjs/intl': 2.10.0(typescript@5.3.2)
       '@formatjs/intl-displaynames': 6.6.6
       '@formatjs/intl-listformat': 7.5.5
       '@types/hoist-non-react-statics': 3.3.5

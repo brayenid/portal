@@ -19,17 +19,13 @@ pwa:
   - changed-files:
       - any-glob-to-any-file:
           - "apps/pwa/**/*"
-api:
-  - changed-files:
-      - any-glob-to-any-file:
-          - "apps/pwa/**/*"
 
 ci:
   - changed-files:
       - any-glob-to-any-file:
           - ".github/**/*"
 
-pwa:
+docs:
   - changed-files:
       - any-glob-to-any-file:
           - "README.md"

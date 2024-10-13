@@ -1500,9 +1500,7 @@ export interface components {
                 brideName: string;
                 brideFrom: string;
                 /** Format: date */
-                startAt: string;
-                /** Format: date */
-                endAt: string;
+                startAt?: string;
                 locale?: string;
                 localizations?: (number | string)[];
             };
@@ -1526,9 +1524,7 @@ export interface components {
             brideName: string;
             brideFrom: string;
             /** Format: date */
-            startAt: string;
-            /** Format: date */
-            endAt: string;
+            startAt?: string;
             /** Format: date-time */
             createdAt?: string;
             /** Format: date-time */
@@ -1644,8 +1640,6 @@ export interface components {
                 brideFrom?: string;
                 /** Format: date */
                 startAt?: string;
-                /** Format: date */
-                endAt?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1673,8 +1667,8 @@ export interface components {
         };
         AnnouncementRequest: {
             data: {
-                title?: string;
-                slug?: string;
+                /** @example string or id */
+                image?: number | string;
                 content?: string;
                 locale?: string;
                 localizations?: (number | string)[];
@@ -1694,48 +1688,68 @@ export interface components {
         Announcement: {
             id?: number;
             documentId?: string;
-            title?: string;
-            slug?: string;
-            content?: string;
-            /** Format: date-time */
-            createdAt?: string;
-            /** Format: date-time */
-            updatedAt?: string;
-            /** Format: date-time */
-            publishedAt?: string;
-            createdBy?: {
+            image?: {
                 id?: number;
                 documentId?: string;
-                firstname?: string;
-                lastname?: string;
-                username?: string;
-                /** Format: email */
-                email?: string;
-                resetPasswordToken?: string;
-                registrationToken?: string;
-                isActive?: boolean;
-                roles?: {
+                name?: string;
+                alternativeText?: string;
+                caption?: string;
+                width?: number;
+                height?: number;
+                formats?: unknown;
+                hash?: string;
+                ext?: string;
+                mime?: string;
+                /** Format: float */
+                size?: number;
+                url?: string;
+                previewUrl?: string;
+                provider?: string;
+                provider_metadata?: unknown;
+                related?: {
+                    id?: number;
+                    documentId?: string;
+                }[];
+                folder?: {
                     id?: number;
                     documentId?: string;
                     name?: string;
-                    code?: string;
-                    description?: string;
-                    users?: {
+                    pathId?: number;
+                    parent?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    children?: {
                         id?: number;
                         documentId?: string;
                     }[];
-                    permissions?: {
+                    files?: {
                         id?: number;
                         documentId?: string;
-                        action?: string;
-                        actionParameters?: unknown;
-                        subject?: string;
-                        properties?: unknown;
-                        conditions?: unknown;
-                        role?: {
+                        name?: string;
+                        alternativeText?: string;
+                        caption?: string;
+                        width?: number;
+                        height?: number;
+                        formats?: unknown;
+                        hash?: string;
+                        ext?: string;
+                        mime?: string;
+                        /** Format: float */
+                        size?: number;
+                        url?: string;
+                        previewUrl?: string;
+                        provider?: string;
+                        provider_metadata?: unknown;
+                        related?: {
+                            id?: number;
+                            documentId?: string;
+                        }[];
+                        folder?: {
                             id?: number;
                             documentId?: string;
                         };
+                        folderPath?: string;
                         /** Format: date-time */
                         createdAt?: string;
                         /** Format: date-time */
@@ -1745,6 +1759,97 @@ export interface components {
                         createdBy?: {
                             id?: number;
                             documentId?: string;
+                            firstname?: string;
+                            lastname?: string;
+                            username?: string;
+                            /** Format: email */
+                            email?: string;
+                            resetPasswordToken?: string;
+                            registrationToken?: string;
+                            isActive?: boolean;
+                            roles?: {
+                                id?: number;
+                                documentId?: string;
+                                name?: string;
+                                code?: string;
+                                description?: string;
+                                users?: {
+                                    id?: number;
+                                    documentId?: string;
+                                }[];
+                                permissions?: {
+                                    id?: number;
+                                    documentId?: string;
+                                    action?: string;
+                                    actionParameters?: unknown;
+                                    subject?: string;
+                                    properties?: unknown;
+                                    conditions?: unknown;
+                                    role?: {
+                                        id?: number;
+                                        documentId?: string;
+                                    };
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                    /** Format: date-time */
+                                    publishedAt?: string;
+                                    createdBy?: {
+                                        id?: number;
+                                        documentId?: string;
+                                    };
+                                    updatedBy?: {
+                                        id?: number;
+                                        documentId?: string;
+                                    };
+                                    locale?: string;
+                                    localizations?: {
+                                        id?: number;
+                                        documentId?: string;
+                                    }[];
+                                }[];
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** Format: date-time */
+                                publishedAt?: string;
+                                createdBy?: {
+                                    id?: number;
+                                    documentId?: string;
+                                };
+                                updatedBy?: {
+                                    id?: number;
+                                    documentId?: string;
+                                };
+                                locale?: string;
+                                localizations?: {
+                                    id?: number;
+                                    documentId?: string;
+                                }[];
+                            }[];
+                            blocked?: boolean;
+                            preferedLanguage?: string;
+                            /** Format: date-time */
+                            createdAt?: string;
+                            /** Format: date-time */
+                            updatedAt?: string;
+                            /** Format: date-time */
+                            publishedAt?: string;
+                            createdBy?: {
+                                id?: number;
+                                documentId?: string;
+                            };
+                            updatedBy?: {
+                                id?: number;
+                                documentId?: string;
+                            };
+                            locale?: string;
+                            localizations?: {
+                                id?: number;
+                                documentId?: string;
+                            }[];
                         };
                         updatedBy?: {
                             id?: number;
@@ -1756,6 +1861,7 @@ export interface components {
                             documentId?: string;
                         }[];
                     }[];
+                    path?: string;
                     /** Format: date-time */
                     createdAt?: string;
                     /** Format: date-time */
@@ -1775,9 +1881,8 @@ export interface components {
                         id?: number;
                         documentId?: string;
                     }[];
-                }[];
-                blocked?: boolean;
-                preferedLanguage?: string;
+                };
+                folderPath?: string;
                 /** Format: date-time */
                 createdAt?: string;
                 /** Format: date-time */
@@ -1798,6 +1903,17 @@ export interface components {
                     documentId?: string;
                 }[];
             };
+            content?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            publishedAt?: string;
+            createdBy?: {
+                id?: number;
+                documentId?: string;
+            };
             updatedBy?: {
                 id?: number;
                 documentId?: string;
@@ -1806,8 +1922,53 @@ export interface components {
             localizations?: {
                 id?: number;
                 documentId?: string;
-                title?: string;
-                slug?: string;
+                image?: {
+                    id?: number;
+                    documentId?: string;
+                    name?: string;
+                    alternativeText?: string;
+                    caption?: string;
+                    width?: number;
+                    height?: number;
+                    formats?: unknown;
+                    hash?: string;
+                    ext?: string;
+                    mime?: string;
+                    /** Format: float */
+                    size?: number;
+                    url?: string;
+                    previewUrl?: string;
+                    provider?: string;
+                    provider_metadata?: unknown;
+                    related?: {
+                        id?: number;
+                        documentId?: string;
+                    }[];
+                    folder?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    folderPath?: string;
+                    /** Format: date-time */
+                    createdAt?: string;
+                    /** Format: date-time */
+                    updatedAt?: string;
+                    /** Format: date-time */
+                    publishedAt?: string;
+                    createdBy?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    updatedBy?: {
+                        id?: number;
+                        documentId?: string;
+                    };
+                    locale?: string;
+                    localizations?: {
+                        id?: number;
+                        documentId?: string;
+                    }[];
+                };
                 content?: string;
                 /** Format: date-time */
                 createdAt?: string;

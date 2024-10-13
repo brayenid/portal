@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { createArticle, uploadFile } from "../helper/tools";
-
+import { bootstrap } from "../helper/setup";
 const body = `
 # Header 1
 
@@ -10,6 +10,10 @@ Sed condimentum facilisis velit, varius suscipit tellus malesuada sit amet. Fusc
 `;
 
 describe("blocks", () => {
+  beforeAll(async () => {
+    await bootstrap();
+  });
+
   it("should generate slug and metaTitle", async () => {
     const item = await createArticle({
       title: "Test slug and metaTitle",
@@ -37,7 +41,7 @@ describe("blocks", () => {
     expect(item.metaDescription).toBe(item.description);
   });
 
-  it("shoud generate metaShareImageUrl from image block", async () => {
+  it("should generate metaShareImageUrl from image block", async () => {
     const image = await uploadFile("coffee-art.jpg");
     const item = await createArticle({
       title: "Test metaShareImageUrl from image block",
@@ -56,7 +60,7 @@ describe("blocks", () => {
     expect(item.metaShareImageUrl).toBe(image.url);
   });
 
-  it("shoud generate metaShareImageUrl from slider block", async () => {
+  it("should generate metaShareImageUrl from slider block", async () => {
     const image = await uploadFile("coffee-art.jpg");
     const item = await createArticle({
       title: "Test metaShareImageUrl from slider block",

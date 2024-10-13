@@ -1,12 +1,8 @@
 import { afterAll, beforeAll } from "vitest";
-import { bootstrap } from "./bootstrap";
+import { bootstrap as doBootstrap } from "./bootstrap";
 
 async function cleanupStrapi() {}
 
-beforeAll(async () => {
-  await bootstrap();
-});
-
-afterAll(async () => {
-  await cleanupStrapi();
-});
+export async function bootstrap() {
+  await doBootstrap();
+}

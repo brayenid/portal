@@ -34,7 +34,7 @@
     },
     "startAt": {
       "type": "date",
-      "required": true,
+      "required": false,
       "pluginOptions": {}
     }
   }

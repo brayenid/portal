@@ -1,9 +1,6 @@
-import type { Core } from "@strapi/strapi";
-
 import _ from "lodash";
 import { extractBlocks } from "./utils/blocks";
-
-const applyTo = ["api::article.article"];
+import { marriageFixer } from "./utils/marriage";
 
 async function generateMetadata(ctx, next) {
   if (!["api::article.article"].includes(ctx.uid)) {
@@ -54,6 +51,7 @@ export default {
    */
   register(/* { strapi }: { strapi: Core.Strapi } */) {
     strapi.documents.use(generateMetadata);
+    strapi.documents.use(marriageFixer);
   },
 
   /**

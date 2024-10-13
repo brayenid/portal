@@ -501,7 +501,7 @@ export interface ApiAnMarriageAnMarriage extends Struct.CollectionTypeSchema {
     groomFrom: Schema.Attribute.String & Schema.Attribute.Required;
     brideName: Schema.Attribute.String & Schema.Attribute.Required;
     brideFrom: Schema.Attribute.String & Schema.Attribute.Required;
-    startAt: Schema.Attribute.Date & Schema.Attribute.Required;
+    startAt: Schema.Attribute.Date;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

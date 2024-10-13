@@ -51,7 +51,7 @@ jobs:
 
   build:
     name: Build
-    needs: ["changes", "node-test", "e2e"]
+    needs: ["changes", "node-test"]
     if: github.event_name != 'pull_request'
     uses: paroki/pkrbt/.github/workflows/image.yml@next
     secrets: inherit

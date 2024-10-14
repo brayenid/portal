@@ -1,14 +1,20 @@
 import { Metadata } from "next";
-import { Image } from "@pkrbt/openapi";
 import { OpenGraphType } from "next/dist/lib/metadata/types/opengraph-types";
 import { addPrefix } from "./prefix";
 import { headers } from "next/headers";
 import invariant from "tiny-invariant";
 
+export type MetaImage = {
+  url: string;
+  width: number;
+  height: number;
+  alternativeText: string;
+};
+
 export type ParokiMeta = {
   title: string;
   description: string;
-  image: Required<Image>;
+  image: MetaImage;
   type: OpenGraphType;
 };
 
@@ -46,6 +52,7 @@ export function generateMeta({
       url,
       countryName: "indonesia",
       locale: "id",
+      siteName: "PKRBT",
     },
     twitter: {
       images,

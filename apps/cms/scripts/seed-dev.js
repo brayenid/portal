@@ -210,24 +210,14 @@ async function importArticles() {
     const title = _.startCase(faker.lorem.words({ min: 2, max: 4 }));
     const description = faker.lorem.sentences(4);
     const image = generateImage();
-    const shareImageUrl = image.image.formats.thumbnail.url;
+    const metaImage = generateImage().image;
     const article = {
       title,
       slug: _.kebabCase(title),
       description,
       category: generateCategory(),
-      blocks: [
-        generateSlider(),
-        generateMarkdown(),
-        image,
-        generateMarkdown(),
-        {
-          __component: "block.seo",
-          metaTitle: title,
-          metaDescription: description,
-          shareImageUrl,
-        },
-      ],
+      metaImage,
+      blocks: [generateSlider(), generateMarkdown(), image, generateMarkdown()],
       publishedAt: Date.now(),
       updatedAt: Date.now(),
       createdBy: { id: superuser.id },

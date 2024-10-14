@@ -37,7 +37,6 @@ export default async function Sacraments({
           </div>
           <div className="flex w-full justify-center gap-6 text-sm text-gray-500">
             <DateReadable isoDate={data.startAt} year /> -{" "}
-            <DateReadable isoDate={data.endAt} year />
           </div>
         </div>
       ))}

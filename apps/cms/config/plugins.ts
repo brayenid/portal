@@ -13,7 +13,10 @@ export default ({ env }) => ({
           api_secret: env("CLOUDINARY_SECRET"),
         },
         actionOptions: {
-          upload: {},
+          upload: {
+            // define cloudinary folder
+            folder: env("CLOUDINARY_FOLDER", "cms"),
+          },
           uploadStream: {},
           delete: {},
         },

@@ -83,3 +83,24 @@ h4 {
 .marriage-el-children-container:last-child {
   @apply border-none;
 }
+
+/* markdown section */
+.markdown h1 {
+  @apply text-4xl;
+}
+
+.markdown h2 {
+  @apply text-3xl;
+}
+
+.markdown h3 {
+  @apply text-2xl;
+}
+
+.markdown h4 {
+  @apply text-lg;
+}
+
+.markdown p {
+  @apply pb-2;
+}

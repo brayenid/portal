@@ -1,5 +1,5 @@
 /**
- * `blog-populate` middleware
+ * `article-read` middleware
  */
 
 import type { Core } from "@strapi/strapi";

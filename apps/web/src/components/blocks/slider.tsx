@@ -1,38 +1,50 @@
-'use client';
-import { BlockSlider } from '@pkrbt/openapi';
-import { Carousel, CarouselContent, CarouselItem } from '../ui/carousel';
-import Image from 'next/image';
-import { Card } from '@radix-ui/themes';
-import { CardContent } from '../ui/card';
-import { useRef } from 'react';
-import Autoplay from 'embla-carousel-autoplay';
-import { STRAPI_URL } from '@/utils/strapi';
+"use client";
+import { BlockSlider } from "@pkrbt/openapi";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import Image from "next/image";
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import { addPrefix } from "@/utils/prefix";
 
 export default function BlockSliderView({ block }: { block: BlockSlider }) {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
+  if (!block.images) {
+    return <></>;
+  }
 
   return (
-    <div>
-      <Carousel
-        plugins={[plugin.current]}
-        className="w-full max-w-xs"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}>
-        <CarouselContent>
-          {block.images?.map((item, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <h1>{item.id}</h1>
-                    <Image src={`${STRAPI_URL}${item.url}`} alt={item.alternativeText ?? 'article image'} />
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+    <div className="flex space-x-5 flex-col md:flex-row">
+      <div className="flex-[1]">
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          plugins={[plugin.current]}
+          className="w-full"
+        >
+          <CarouselContent>
+            {block.images?.map((item, index) => (
+              <CarouselItem key={index}>
+                <Image
+                  priority
+                  className="rounded w-full md:w-auto"
+                  src={addPrefix(item.url)}
+                  alt={item.alternativeText ?? "article image"}
+                  width={item.width}
+                  height={item.height}
+                  style={{
+                    display: "block",
+                    objectFit: "cover",
+                    width: "100%",
+                    height: 400,
+                    backgroundColor: "var(--gray-5)",
+                  }}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
     </div>
   );
 }

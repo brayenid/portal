@@ -46,19 +46,6 @@
       "target": "api::category.category",
       "inversedBy": "articles"
     },
-    "blocks": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "dynamiczone",
-      "components": [
-        "block.slider",
-        "block.rich-text",
-        "block.image"
-      ]
-    },
     "metaTitle": {
       "type": "string",
       "required": false,
@@ -77,14 +64,24 @@
         }
       }
     },
-    "metaShareImageUrl": {
-      "type": "string",
-      "required": false,
+    "metaImage": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "blocks": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "type": "dynamiczone",
+      "components": ["block.slider", "block.rich-text", "block.image"]
     }
   }
 }

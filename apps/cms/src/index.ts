@@ -33,8 +33,8 @@ async function generateMetadata(ctx, next) {
   data.metaDescription = data.description;
 
   // generates metaShareImageUrl
-  if (!data.metaShareImageUrl) {
-    data.metaShareImageUrl = thumbnail;
+  if (!data.metaImage) {
+    data.metaImage = thumbnail;
   }
 
   ctx.params.data = data;

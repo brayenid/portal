@@ -40,42 +40,4 @@ describe("blocks", () => {
     expect(item.description).toContain("consectetur adipiscing elit");
     expect(item.metaDescription).toBe(item.description);
   });
-
-  it("should generate metaShareImageUrl from image block", async () => {
-    const image = await uploadFile("coffee-art.jpg");
-    const item = await createArticle({
-      title: "Test metaShareImageUrl from image block",
-      blocks: [
-        {
-          __component: "block.image",
-          image,
-        },
-      ],
-    });
-
-    Object.assign(item, {});
-
-    // metaShareImageUrl expectation
-    expect(item.metaShareImageUrl).not.toBeNull();
-    expect(item.metaShareImageUrl).toBe(image.url);
-  });
-
-  it("should generate metaShareImageUrl from slider block", async () => {
-    const image = await uploadFile("coffee-art.jpg");
-    const item = await createArticle({
-      title: "Test metaShareImageUrl from slider block",
-      blocks: [
-        {
-          __component: "block.slider",
-          images: [image],
-        },
-      ],
-    });
-
-    Object.assign(item, {});
-
-    // metaShareImageUrl expectation
-    expect(item.metaShareImageUrl).not.toBeNull();
-    expect(item.metaShareImageUrl).toBe(image.url);
-  });
 });

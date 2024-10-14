@@ -24,10 +24,10 @@ export async function extractBlocks(blocks: any): Promise<ExtractedBlocks> {
         .split(/\n\s*\n/);
       description = contents[0];
     } else if ("block.image" === block.__component && null == thumbnail) {
-      thumbnail = block.image.url;
+      thumbnail = block.image;
     } else if ("block.slider" === block.__component && null == thumbnail) {
       if (block.images.length > 0) {
-        thumbnail = block.images[0].url;
+        thumbnail = block.images[0];
       }
     }
   }

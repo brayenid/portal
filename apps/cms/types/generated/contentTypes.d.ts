@@ -579,14 +579,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       }>;
     slug: Schema.Attribute.UID<'title'>;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
-    blocks: Schema.Attribute.DynamicZone<
-      ['block.slider', 'block.rich-text', 'block.image']
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     metaTitle: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -599,7 +591,15 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    metaShareImageUrl: Schema.Attribute.String &
+    metaImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    blocks: Schema.Attribute.DynamicZone<
+      ['block.slider', 'block.rich-text', 'block.image']
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

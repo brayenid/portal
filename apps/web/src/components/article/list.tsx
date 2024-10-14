@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 
-import Container from '@/components/ui/container';
-import { Box, Inset, Card } from '@radix-ui/themes';
-import Link from 'next/link';
-import { Article } from '@pkrbt/openapi';
-import { extractSeo } from '@/utils/blocks';
-import { Search } from '../ui/search';
-import PaginationCustom from '../pagination';
-import DateReadable from '../date';
-import { addPrefix } from '@/utils/prefix';
+import Container from "@/components/ui/container";
+import { Box, Inset, Card } from "@radix-ui/themes";
+import Link from "next/link";
+import { Article } from "@pkrbt/openapi";
+import { Search } from "../ui/search";
+import PaginationCustom from "../pagination";
+import DateReadable from "../date";
+import { addPrefix } from "@/utils/prefix";
+import Image from "next/image";
 
 interface ArticleElProps {
   articles: Article[];
@@ -20,22 +20,28 @@ interface ArticleElProps {
 }
 
 export const ListView = ({ article }: { article: Article }) => {
-  const seo = extractSeo(article);
   return (
-    <Box maxWidth="240px" className="rounded overflow-hidden group transition-all hover:scale-[1.01]">
+    <Box
+      maxWidth="240px"
+      className="rounded overflow-hidden group transition-all hover:scale-[1.01]"
+    >
       <Card size="2" className="relative">
         <Inset clip="padding-box" side="top" pb="current">
-          <img
-            src={seo.shareImageUrl ? addPrefix(String(seo.shareImageUrl)) : '/static/noimg.jpg'}
+          <Image
+            src={
+              article.metaImage?.url
+                ? addPrefix(article.metaImage.url)
+                : "/static/noimg.jpg"
+            }
             alt="Bold typography"
             width="200"
             height="140"
             style={{
-              display: 'block',
-              objectFit: 'cover',
-              width: '100%',
+              display: "block",
+              objectFit: "cover",
+              width: "100%",
               height: 140,
-              backgroundColor: 'var(--gray-5)'
+              backgroundColor: "var(--gray-5)",
             }}
           />
         </Inset>
@@ -43,8 +49,10 @@ export const ListView = ({ article }: { article: Article }) => {
           <p>{article.category?.name}</p>
         </div>
         <div>
-          <h3 className="text-base mb-2 group-hover:text-primary-600">{article.title}</h3>
-          <p>{seo.metaDescription?.substring(0, 85)}...</p>
+          <h3 className="text-base mb-2 group-hover:text-primary-600">
+            {article.title}
+          </h3>
+          <p>{article.metaDescription?.substring(0, 85)}...</p>
           <div className="mt-4 text-gray-500 w-full">
             <DateReadable isoDate={article.publishedAt as string} />
           </div>
@@ -62,10 +70,11 @@ export default function ArticleList({ articles, pageMeta }: ArticleElProps) {
         <p>
           {pageMeta.search ? (
             <>
-              Berikut hasil pencarian <span className="font-bold">{pageMeta.search}</span>
+              Berikut hasil pencarian{" "}
+              <span className="font-bold">{pageMeta.search}</span>
             </>
           ) : (
-            'Berikut artikel terkini PKRBT'
+            "Berikut artikel terkini PKRBT"
           )}
         </p>
         <Search />
@@ -73,13 +82,21 @@ export default function ArticleList({ articles, pageMeta }: ArticleElProps) {
           <>
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 text-sm">
               {articles.map((article, index) => (
-                <Link key={index} href={`/${article.slug}`} className="hover:text-inherit">
+                <Link
+                  key={index}
+                  href={`/${article.slug}`}
+                  className="hover:text-inherit"
+                >
                   <ListView article={article} />
                 </Link>
               ))}
             </div>
             <div className="mt-6">
-              <PaginationCustom page={pageMeta.page ?? 1} size={pageMeta.size} search={pageMeta.search} />
+              <PaginationCustom
+                page={pageMeta.page ?? 1}
+                size={pageMeta.size}
+                search={pageMeta.search}
+              />
             </div>
           </>
         ) : (

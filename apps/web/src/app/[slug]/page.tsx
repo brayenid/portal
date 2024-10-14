@@ -10,8 +10,8 @@ import { TimerIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import readingTime from "reading-time";
 import type { Metadata } from "next";
-import { Article } from "@pkrbt/openapi";
-import { extractSeo } from "@/utils/blocks";
+import type { Article, Image } from "@pkrbt/openapi";
+import { generateMeta } from "@/utils/meta";
 
 type Props = {
   params: {
@@ -45,18 +45,14 @@ const getArticle = async (slug: string): Promise<Article> => {
 // export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = await getArticle(params.slug);
-
-  // optionally access and extend (rather than replace) parent metadata
-  const seo = extractSeo(article);
-
-  return {
-    title: `${article.title} | PKRBT`,
-    openGraph: {
-      images: seo.metaTitle,
-      description: article.description?.substring(0, 75),
-    },
-  };
+  const article = (await getArticle(params.slug)) as Required<Article>;
+  const image = article.metaImage as Required<Image>;
+  return generateMeta({
+    title: article.metaTitle,
+    description: article.metaDescription,
+    type: "article",
+    image,
+  });
 }
 
 export default async function Page({ params }: Props) {

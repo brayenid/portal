@@ -5,9 +5,8 @@ on:
     inputs:
       ref_name:
         description: ref name
-        default: ${{ github.ref_name }}
         type: string
-        required: false
+        required: true
       name:
         type: string
         description: The build name

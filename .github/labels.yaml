@@ -5,6 +5,8 @@
   color: "0e8a16"
 - name: improvement
   color: "0e8a16"
+- name: dependencies
+  color: "0e8a16"
 - name: test
   color: "0e8a16"
 - name: ci

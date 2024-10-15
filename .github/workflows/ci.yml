@@ -5,13 +5,14 @@ on:
     branches:
       - next
       - debug
-      - beta
-      - main
-      - wip
   pull_request:
     branches:
       - next
-      - main
+      - debug
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   changes:

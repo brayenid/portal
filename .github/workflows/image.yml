@@ -7,6 +7,10 @@ on:
         type: string
         default: "false"
         description: build cms
+      ref_name:
+        type: string
+        default: ${{ github.ref_name }}
+        description: GitHub refname
 
 jobs:
   cms:
@@ -20,3 +24,4 @@ jobs:
       dockerfile: apps/cms/Dockerfile
       target: prod
       goss_file: docker/goss-cms.yaml
+      ref_name: ${{ inputs.ref_name }}

@@ -11,6 +11,10 @@ on:
         type: string
         description: Deploy website
         required: true
+      production:
+        type: string
+        description: Production release
+        default: "false"
 
 permissions:
   contents: read
@@ -24,6 +28,8 @@ env:
   TURBO_REMOTE_ONLY: true
   NODE_ENV: production
   VERCEL_ORG_ID: ${{ secrets.VERCEL_USER_ID }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
 jobs:
   web:
     name: Website
@@ -32,6 +38,22 @@ jobs:
     env:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_WEB_ID }}
     steps:
+      - name: setup vars
+        id: vars
+        shell: bash
+        run: |
+          vercel_deploy="vercel deploy --prebuilt"
+          vercel_build="vercel build"
+          production="${{ inputs.production }}"
+
+          if [[ $production == "true" ]]; then
+            vercel_deploy="vercel deploy --prod --prebuilt"
+            vercel_build="vercel build --prod"
+          fi
+
+          echo "vercel_deploy=${vercel_deploy}" >> "$GITHUB_OUTPUT"
+          echo "vercel_build=${vercel_build}" >> "$GITHUB_OUTPUT"
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -50,7 +72,8 @@ jobs:
         run: |
           pnpm install --filter=@pkrbt/web
           pnpm build --filter=@pkrbt/web
-          vercel build --token=${{ secrets.VERCEL_TOKEN }}
+          ${{ steps.vars.outputs.vercel_build }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          ${{ steps.vars.outputs.vercel_deploy }} --token=${{ secrets.VERCEL_TOKEN }}

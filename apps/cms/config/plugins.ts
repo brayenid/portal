@@ -14,8 +14,7 @@ export default ({ env }) => ({
         },
         actionOptions: {
           upload: {
-            // define cloudinary folder
-            folder: env("CLOUDINARY_FOLDER", "cms"),
+            timeout: 60000,
           },
           uploadStream: {},
           delete: {},

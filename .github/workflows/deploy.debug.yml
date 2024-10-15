@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - deploy.debug
+
+# These are recommended by the semantic-release docs: https://github.com/semantic-release/npm#npm-provenance
+permissions:
+  contents: write # to be able to publish a GitHub release
+  issues: write # to be able to comment on released issues
+  pull-requests: write # to be able to comment on released pull requests
+  id-token: write # to enable use of OIDC for npm provenance
+  packages: write
+  deployments: write
+  statuses: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.PAT }}
+
+jobs:
+  deploy:
+    name: Production
+    uses: paroki/pkrbt/.github/workflows/deploy.yml@deploy.debug
+    secrets: inherit
+    with:
+      web: "true"
+      pwa: "true"
+      production: "true"
+
+  preview:
+    name: Preview
+    uses: paroki/pkrbt/.github/workflows/deploy.yml@deploy.debug
+    secrets: inherit
+    with:
+      web: "true"
+      pwa: "true"
+      production: "false"

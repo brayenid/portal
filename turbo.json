@@ -12,7 +12,8 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "dist", ".strapi"]
+      "outputs": [".next/**", "!.next/cache/**", "dist", ".strapi"],
+      "env": ["NEXT_PUBLIC_STRAPI_URL", "STRAPI_TOKEN", "GOOGLE_ANALYTICS_ID"]
     },
     "dev": {
       "cache": false,

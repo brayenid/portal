@@ -208,7 +208,7 @@ function generateSlider() {
 async function importArticles() {
   for (let i = 0; i < 50; i++) {
     const title = _.startCase(faker.lorem.words({ min: 2, max: 4 }));
-    const description = faker.lorem.sentences(4);
+    const description = faker.lorem.sentences(4).substring(0, 250);
     const image = generateImage();
     const metaImage = generateImage().image;
     const article = {

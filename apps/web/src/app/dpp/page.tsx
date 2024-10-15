@@ -21,7 +21,7 @@ export default async function Page() {
             Dewan Pastoral Paroki - Harian
           </h1>
         </div>
-        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-3 ">
+        <div className="grid gap-12 items-start sm:grid-cols-2 md:grid-cols-3">
           {items.map((item, index) => (
             <div
               key={index}

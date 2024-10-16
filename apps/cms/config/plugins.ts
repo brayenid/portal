@@ -9,7 +9,7 @@ export default ({ env }) => ({
   upload: {
     config: (() => {
       if ("production" != process.env.NODE_ENV) {
-        return {};
+        // return {};
       }
 
       return {
@@ -19,9 +19,9 @@ export default ({ env }) => ({
           api_key: env("CLOUDINARY_KEY"),
           api_secret: env("CLOUDINARY_SECRET"),
         },
+        breakpoints: {},
         actionOptions: {
           upload: {
-            folder: env("CLOUDINARY_FOLDER", "cms"),
             timeout: 60000,
           },
           uploadStream: {},

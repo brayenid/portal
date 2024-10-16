@@ -27,12 +27,3 @@ jobs:
       web: "true"
       pwa: "true"
       production: "true"
-
-  preview:
-    name: Preview
-    uses: paroki/pkrbt/.github/workflows/deploy.yml@deploy.debug
-    secrets: inherit
-    with:
-      web: "true"
-      pwa: "true"
-      production: "false"

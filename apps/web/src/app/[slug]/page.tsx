@@ -41,9 +41,6 @@ const getArticle = async (slug: string): Promise<Article> => {
   return await api.article.read(slug);
 };
 
-// TODO: find a way to remove the line below
-// export const dynamic = 'force-dynamic';
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = (await getArticle(params.slug)) as Required<Article>;
   const image = article.metaImage as Required<Image>;

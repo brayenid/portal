@@ -21,6 +21,7 @@ export default ({ env }) => ({
         },
         actionOptions: {
           upload: {
+            folder: env("CLOUDINARY_FOLDER", "cms"),
             timeout: 60000,
           },
           uploadStream: {},
